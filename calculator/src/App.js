@@ -1,109 +1,33 @@
 import { useState } from "react";
+import Board from "./Board"; 
 
 
-function Square({ value, onSquareClick }) {
-
-  return (
-    <button
-      className="square"
-      onClick={onSquareClick}
-    >
-      {value}
-    </button>
-  );
-}
-
-function Board({ xIsNext, square, onPlay }) {
 
 
-  const winner = calculateWinner(square)
-
-  function handleClick(i) {
-    if (square[i] || winner) {
-      return
-    }
-
-    const newsquare = square.slice()
-    if (xIsNext) {
-      newsquare[i] = 'X'
-    } else {
-      newsquare[i] = 'O'
-    }
-
-    onPlay(newsquare)
-  }
-
-  let status
-  if (winner) {
-    status = `Winner : ${winner}`
-  } else {
-    status = `Next Player : '${xIsNext ? 'X' : 'O'}'`
-  }
-
-  const squares = square.map((element, move) => {
-    return (
-      <Square key={move} value={element} onSquareClick={() => handleClick(move)} />
-    )
-  })
-
-  const board = () => {
-    const rows = [0, 1, 2]
-
-    return (
-      <>
-        {rows.map((row) => {
-          return (
-            <div key={row} className="board-row">
-              {squares.slice(row + row * 2, row + row * 2 + 3)}
-            </div>
-          )
-        })}
-      </>)
-  }
-
-  return (
-    <>
-      <div className="status">{status}</div>
-      {board()}
-    </>
-  );
-
-  function calculateWinner(square) {
-    const winningConditions = [
-      // Rows
-      [0, 1, 2], [3, 4, 5], [6, 7, 8],
-      // Columns
-      [0, 3, 6], [1, 4, 7], [2, 5, 8],
-      // Diagonals
-      [0, 4, 8], [2, 4, 6]
-    ];
-
-    for (let i = 0; i < winningConditions.length; i++) {
-      const [a, b, c] = winningConditions[i];
-
-      if ((square[a]) && (square[a] === square[b]) && (square[a] === square[c])) {
-        return square[a]
-      }
-
-    }
-
-    return null
-
-  }
-}
-
+/*  
+!GAME 
+*/
 export default function Game() {
 
   const [history, setHistory] = useState([Array(9).fill(null)])
+  const [moveCoordinates, setMoveCoordinates] = useState([])
   const [currentMove, setCurrentMove] = useState(0)
   const [ordered, setOrdered] = useState(true)
+
   const currentSquare = history[currentMove]
   const xIsNext = currentMove % 2 === 0
 
   function handlePlay(newsquare) {
     const nextHistory = [...history.slice(0, currentMove + 1), newsquare]
+
     setHistory(nextHistory)
     setCurrentMove(nextHistory.length - 1)
+    const squareLocation = nextHistory[nextHistory.length - 2].map((element, index) => {
+      return element === newsquare[index] ? null : newsquare[index];
+    });
+
+    const coordinates = calculateCoordinates(squareLocation)
+    setMoveCoordinates([...moveCoordinates,coordinates])
   }
 
   function jumpTo(move) {
@@ -113,14 +37,16 @@ export default function Game() {
   function reOrder() {
     setOrdered(!ordered)
   }
+
   const moves = history.map((board, move) => {
     let description;
+    let coordinates = moveCoordinates[move] || ""
     if (currentMove === move) {
-      description = "You Are At Move #" + move
+      description = "You Are At Move #" + move 
     } else if (move > 0) {
-      description = "Go To Move #" + move
+      description = "Go To Move #" + move + " " + coordinates
     } else {
-      description = "Go To Game Start"
+      description = "Go To Game Start " + coordinates
     }
 
     return (
@@ -145,4 +71,18 @@ export default function Game() {
       </div>
     </div>
   );
+
+  function calculateCoordinates(squareLocation) {
+    let row
+    let col
+    if (squareLocation.indexOf("X") !== -1) {
+      row = Math.floor(squareLocation.indexOf("X") / 3) + 1;
+      col = squareLocation.indexOf("X") % 3 + 1;
+    } else {
+      row = Math.floor(squareLocation.indexOf("O") / 3) + 1;
+      col = squareLocation.indexOf("O") % 3 + 1;
+    }
+
+    return (`(Row ${row}, Col ${col})`);
+  }
 }
