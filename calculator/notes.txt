@@ -1,0 +1,2 @@
+naming conventions for function defenitions handling events : handleClick, handleUpdate ..etc
+naming conventions for passed down props of those functions who handle events : onElementClick , onHeaderUpdate..etc
