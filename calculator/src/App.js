@@ -47,19 +47,18 @@ function Board({ xIsNext, square, onPlay }) {
   })
 
   const board = () => {
-    const b = []
-    for (let i = 0; i < 3; i++) {
-      b.push(<div key={i} className="board-row">
-        {squares[i + 2 * i]}
-        {squares[i + 1 + 2 * i]}
-        {squares[i + 2 + 2 * i]}
-      </div>)
-    }
+    const rows = [0, 1, 2]
 
     return (
-      <div>
-        {b}
-      </div>);
+      <>
+        {rows.map((row) => {
+          return (
+            <div key={row} className="board-row">
+              {squares.slice(row + row * 2, row + row * 2 + 3)}
+            </div>
+          )
+        })}
+      </>)
   }
 
   return (
