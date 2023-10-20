@@ -96,6 +96,7 @@ export default function Game() {
 
   const [history, setHistory] = useState([Array(9).fill(null)])
   const [currentMove, setCurrentMove] = useState(0)
+  const [ordered, setOrdered] = useState(true)
   const currentSquare = history[currentMove]
   const xIsNext = currentMove % 2 === 0
 
@@ -109,6 +110,9 @@ export default function Game() {
     setCurrentMove(move)
   }
 
+  function reOrder() {
+    setOrdered(!ordered)
+  }
   const moves = history.map((board, move) => {
     let description;
     if (currentMove === move) {
@@ -126,13 +130,18 @@ export default function Game() {
     )
   })
 
+  if (!ordered) {
+    moves.reverse()
+  }
+
   return (
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} square={currentSquare} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        <button onClick={reOrder}>Toggle</button>
+        <ol reversed={!ordered}>{moves}</ol>
       </div>
     </div>
   );
