@@ -1,46 +1,58 @@
-import React, { useState } from "react";
-import PropTypes from 'prop-types';
-import ProductTable from "./ProductTable";
-import SearchBar from "./SearchBar";
+import React from 'react';
+import { getImageUrl } from './utils.js';
 
-function FilterableProductTable({ products }) {
-    const [filterText, setFilterText] = useState('')
-    const [inStockOnly, setInStockOnly] = useState(false)
-
+export default function Gallery() {
     return (
         <div>
-            <SearchBar
-                filterText={filterText}
-                inStockOnly={inStockOnly}
-                onFilterTextChange={setFilterText}
-                onInStockOnly={setInStockOnly} />
-            <ProductTable products={products}
-                filterText={filterText}
-                inStockOnly={inStockOnly} />
+            <h1>Notable Scientists</h1>
+            <section className="profile">
+                <h2>Maria Skłodowska-Curie</h2>
+                <img
+                    className="avatar"
+                    src={getImageUrl('szV5sdG')}
+                    alt="Maria Skłodowska-Curie"
+                    width={70}
+                    height={70}
+                />
+                <ul>
+                    <li>
+                        <b>Profession: </b>
+                        physicist and chemist
+                    </li>
+                    <li>
+                        <b>Awards: 4 </b>
+                        (Nobel Prize in Physics, Nobel Prize in Chemistry, Davy Medal, Matteucci Medal)
+                    </li>
+                    <li>
+                        <b>Discovered: </b>
+                        polonium (chemical element)
+                    </li>
+                </ul>
+            </section>
+            <section className="profile">
+                <h2>Katsuko Saruhashi</h2>
+                <img
+                    className="avatar"
+                    src={getImageUrl('YfeOqp2')}
+                    alt="Katsuko Saruhashi"
+                    width={70}
+                    height={70}
+                />
+                <ul>
+                    <li>
+                        <b>Profession: </b>
+                        geochemist
+                    </li>
+                    <li>
+                        <b>Awards: 2 </b>
+                        (Miyake Prize for geochemistry, Tanaka Prize)
+                    </li>
+                    <li>
+                        <b>Discovered: </b>
+                        a method for measuring carbon dioxide in seawater
+                    </li>
+                </ul>
+            </section>
         </div>
-    )
-
-}
-
-FilterableProductTable.propTypes = {
-    products: PropTypes.array.isRequired,
-}
-
-
-const products = [
-    { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
-    { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
-    { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
-    { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
-    { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
-    { category: "Vegetables", price: "$1", stocked: true, name: "Peas" }
-]
-
-const sortedProducts = products.sort((a, b) => (a.category < b.category) ? -1 : (a.category > b.category) ? 1 : 0);
-
-
-export default function App() {
-    return (
-        <FilterableProductTable products={sortedProducts} />
-    )
+    );
 }
