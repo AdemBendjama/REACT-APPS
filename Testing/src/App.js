@@ -1,44 +1,29 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-// import { getImageUrl } from './utils.js';
-import { people } from './data.js';
-import { getImageUrl } from './utils.js';
+import { recipes } from './data.js';
+import { Fragment } from 'react';
 
-export default function List() {
-    const chemistsList = people.filter(person => person.profession === 'chemist')
-    const chemists = chemistsList.map(person =>
-        <li key={person.id}>
-            <img
-                src={getImageUrl(person)}
-                alt={person.name}
-            />
-            <p>
-                <b>{person.name}:</b>
-                {' ' + person.profession + ' '}
-                known for {person.accomplishment}
-            </p>
-        </li>
-    );
-    const everyoneElseList = people.filter(person => person.profession !== 'chemist')
-    const everyoneElse = everyoneElseList.map(person =>
-        <li key={person.id}>
-            <img
-                src={getImageUrl(person)}
-                alt={person.name}
-            />
-            <p>
-                <b>{person.name}:</b>
-                {' ' + person.profession + ' '}
-                known for {person.accomplishment}
-            </p>
-        </li>
-    );
+export default function RecipeList() {
+
+    const recipeList = recipes.map((recipe) => {
+        return (
+            <Fragment key={recipe.id}>
+                <h2>{recipe.name}</h2>
+                <ul>
+                    {recipe.ingredients.map(ing => {
+                        return (
+                            <li key={`${recipe.id}_${ing}`}>{ing}</li>
+                        )
+                    })}
+                </ul>
+            </Fragment>
+        )
+    })
+
     return (
-        <article>
-            <h1>Chemists</h1>
-            <ul>{chemists}</ul>
-            <h1>Everyone Else</h1>
-            <ul>{everyoneElse}</ul>
-        </article>
+        <div>
+            <h1>Recipes</h1>
+            {recipeList}
+        </div>
     );
 }
