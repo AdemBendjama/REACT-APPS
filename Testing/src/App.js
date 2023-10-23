@@ -1,54 +1,37 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 // import { getImageUrl } from './utils.js';
-import PropTypes from 'prop-types';
 
-export default function Profile() {
+function Item({ name, isPacked, importance }) {
+    return <li className="item">
+        {name}
+        {isPacked && '✔' || '❌'}
+        {importance > 0 && `importance(${importance})`}
+    </li>;
+}
+
+export default function PackingList() {
     return (
-        <div>
-            <Card>
-                <Photo />
-            </Card>
-            <Card>
-                <About />
-            </Card>
-        </div>
+        <section>
+            <h1>Sally Rides Packing List</h1>
+            <ul>
+                <Item
+                    importance={9}
+                    isPacked={true}
+                    name="Space suit"
+                />
+                <Item
+                    importance={0}
+                    isPacked={true}
+                    name="Helmet with a golden leaf"
+                />
+                <Item
+                    importance={6}
+                    isPacked={false}
+                    name="Photo of Tam"
+                />
+            </ul>
+        </section>
     );
 }
 
-function Card({ children }) {
-    return (
-        <div className="card">
-            <div className="card-content">
-                {children}
-            </div>
-        </div>
-    )
-}
-
-Card.propTypes = {
-    children: PropTypes.object
-}
-
-
-function Photo() {
-    return (
-        <>
-            <h1>Photo</h1>
-            <img
-                className="avatar"
-                src="https://i.imgur.com/OKS67lhm.jpg"
-                alt="Aklilu Lemma"
-                width={70}
-                height={70}
-            />
-        </>
-    )
-}
-function About() {
-    return (
-        <>
-            <h1>About</h1>
-            <p>Aklilu Lemma was a distinguished Ethiopian scientist who discovered a natural treatment to schistosomiasis.</p>
-        </>
-    )
-}
