@@ -1,40 +1,44 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 // import { getImageUrl } from './utils.js';
-function Drink({ name }) {
-    let plant = ''
-    let content = ''
-    let age = ''
-    if (name === 'tea') {
-        plant = 'leaf'
-        content = '15–70 mg/cup'
-        age = '4,000+ years'
-    } else {
-        plant = 'bean'
-        content = '80–185 mg/cup'
-        age = '1,000+ years'
-    }
+import { people } from './data.js';
+import { getImageUrl } from './utils.js';
 
-    return (
-        <section>
-            <h1>{name}</h1>
-            <dl>
-                <dt>Part of plant</dt>
-                <dd>{plant}</dd>
-                <dt>Caffeine content</dt>
-                <dd>{content}</dd>
-                <dt>Age</dt>
-                <dd>{age}</dd>
-            </dl>
-        </section>
+export default function List() {
+    const chemistsList = people.filter(person => person.profession === 'chemist')
+    const chemists = chemistsList.map(person =>
+        <li key={person.id}>
+            <img
+                src={getImageUrl(person)}
+                alt={person.name}
+            />
+            <p>
+                <b>{person.name}:</b>
+                {' ' + person.profession + ' '}
+                known for {person.accomplishment}
+            </p>
+        </li>
     );
-}
-
-export default function DrinkList() {
+    const everyoneElseList = people.filter(person => person.profession !== 'chemist')
+    const everyoneElse = everyoneElseList.map(person =>
+        <li key={person.id}>
+            <img
+                src={getImageUrl(person)}
+                alt={person.name}
+            />
+            <p>
+                <b>{person.name}:</b>
+                {' ' + person.profession + ' '}
+                known for {person.accomplishment}
+            </p>
+        </li>
+    );
     return (
-        <div>
-            <Drink name="tea" />
-            <Drink name="coffee" />
-        </div>
+        <article>
+            <h1>Chemists</h1>
+            <ul>{chemists}</ul>
+            <h1>Everyone Else</h1>
+            <ul>{everyoneElse}</ul>
+        </article>
     );
 }
