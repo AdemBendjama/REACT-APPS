@@ -1,37 +1,40 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 // import { getImageUrl } from './utils.js';
+function Drink({ name }) {
+    let plant = ''
+    let content = ''
+    let age = ''
+    if (name === 'tea') {
+        plant = 'leaf'
+        content = '15–70 mg/cup'
+        age = '4,000+ years'
+    } else {
+        plant = 'bean'
+        content = '80–185 mg/cup'
+        age = '1,000+ years'
+    }
 
-function Item({ name, isPacked, importance }) {
-    return <li className="item">
-        {name}
-        {isPacked && '✔' || '❌'}
-        {importance > 0 && `importance(${importance})`}
-    </li>;
-}
-
-export default function PackingList() {
     return (
         <section>
-            <h1>Sally Rides Packing List</h1>
-            <ul>
-                <Item
-                    importance={9}
-                    isPacked={true}
-                    name="Space suit"
-                />
-                <Item
-                    importance={0}
-                    isPacked={true}
-                    name="Helmet with a golden leaf"
-                />
-                <Item
-                    importance={6}
-                    isPacked={false}
-                    name="Photo of Tam"
-                />
-            </ul>
+            <h1>{name}</h1>
+            <dl>
+                <dt>Part of plant</dt>
+                <dd>{plant}</dd>
+                <dt>Caffeine content</dt>
+                <dd>{content}</dd>
+                <dt>Age</dt>
+                <dd>{age}</dd>
+            </dl>
         </section>
     );
 }
 
+export default function DrinkList() {
+    return (
+        <div>
+            <Drink name="tea" />
+            <Drink name="coffee" />
+        </div>
+    );
+}
