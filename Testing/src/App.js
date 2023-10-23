@@ -1,29 +1,30 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { recipes } from './data.js';
 import { Fragment } from 'react';
 
-export default function RecipeList() {
+const poem = {
+    lines: [
+        'I write, erase, rewrite',
+        'Erase again, and then',
+        'A poppy blooms.'
+    ]
+};
 
-    const recipeList = recipes.map((recipe) => {
+export default function Poem() {
+    const haiku = poem.lines.map((line, index) => {
         return (
-            <Fragment key={recipe.id}>
-                <h2>{recipe.name}</h2>
-                <ul>
-                    {recipe.ingredients.map(ing => {
-                        return (
-                            <li key={`${recipe.id}_${ing}`}>{ing}</li>
-                        )
-                    })}
-                </ul>
+            <Fragment key={`${line}_${index}`}>
+                <p key={index}>
+                    {line}
+                </p>
+                {(poem.lines.length - 1) !== index && <hr key={index} />}
             </Fragment>
         )
     })
-
     return (
-        <div>
-            <h1>Recipes</h1>
-            {recipeList}
-        </div>
+        <article>
+            {haiku}
+        </article>
     );
 }
+
