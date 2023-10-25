@@ -1,30 +1,53 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
-import { Fragment } from 'react';
+import React, { useState } from 'react';
+import { sculptureList } from './data.js';
 
-const poem = {
-    lines: [
-        'I write, erase, rewrite',
-        'Erase again, and then',
-        'A poppy blooms.'
-    ]
-};
+export default function Gallery() {
+    const [index, setIndex] = useState(0);
+    const [showMore, setShowMore] = useState(false);
 
-export default function Poem() {
-    const haiku = poem.lines.map((line, index) => {
-        return (
-            <Fragment key={`${line}_${index}`}>
-                <p key={index}>
-                    {line}
-                </p>
-                {(poem.lines.length - 1) !== index && <hr key={index} />}
-            </Fragment>
-        )
-    })
+    function handleNextClick() {
+        setIndex(index + 1);
+    }
+    function handlePreviousClick() {
+        setIndex(index - 1);
+    }
+
+    function handleMoreClick() {
+        setShowMore(!showMore);
+    }
+
+    let sculpture = sculptureList[index];
+    let lastIndex = sculptureList.length - 1
     return (
-        <article>
-            {haiku}
-        </article>
+        <>
+            {
+                index !== lastIndex && (
+                    <button onClick={handleNextClick}>
+                        Next
+                    </button>)
+            }
+            {
+                index !== 0 && (
+                    <button onClick={handlePreviousClick}>
+                        Previous
+                    </button>)
+            }
+
+            <h2>
+                <i>{sculpture.name} </i>
+                by {sculpture.artist}
+            </h2>
+            <h3>
+                ({index + 1} of {sculptureList.length})
+            </h3>
+            <button onClick={handleMoreClick}>
+                {showMore ? 'Hide' : 'Show'} details
+            </button>
+            {showMore && <p>{sculpture.description}</p>}
+            <img
+                src={sculpture.url}
+                alt={sculpture.alt}
+            />
+        </>
     );
 }
-
