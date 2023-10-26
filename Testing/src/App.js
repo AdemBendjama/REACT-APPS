@@ -1,36 +1,85 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 
-export default function Form() {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+function increment(n) {
+    return n + 1;
+}
+increment.toString = () => 'n => n+1';
 
-    function handleFirstNameChange(e) {
-        setFirstName(e.target.value)
-    }
-
-    function handleLastNameChange(e) {
-        setLastName(e.target.value)
-    }
-
-    function handleReset() {
-        setFirstName('')
-        setLastName('')
-    }
-
+export default function App() {
     return (
-        <form onSubmit={e => e.preventDefault()}>
-            <input
-                placeholder="First name"
-                value={firstName}
-                onChange={handleFirstNameChange}
+        <>
+            <TestCase
+                baseState={0}
+                queue={[1, 1, 1]}
+                expected={1}
             />
-            <input
-                placeholder="Last name"
-                value={lastName}
-                onChange={handleLastNameChange}
+            <hr />
+            <TestCase
+                baseState={0}
+                queue={[
+                    increment,
+                    increment,
+                    increment
+                ]}
+                expected={3}
             />
-            <h1>Hi, {firstName} {lastName}</h1>
-            <button onClick={handleReset}>Reset</button>
-        </form>
+            <hr />
+            <TestCase
+                baseState={0}
+                queue={[
+                    5,
+                    increment,
+                ]}
+                expected={6}
+            />
+            <hr />
+            <TestCase
+                baseState={0}
+                queue={[
+                    5,
+                    increment,
+                    42,
+                ]}
+                expected={42}
+            />
+        </>
     );
+}
+
+function TestCase({
+    baseState,
+    queue,
+    expected
+}) {
+    const actual = getFinalState(baseState, queue);
+    return (
+        <>
+            <p>Base state: <b>{baseState}</b></p>
+            <p>Queue: <b>[{queue.join(', ')}]</b></p>
+            <p>Expected result: <b>{expected}</b></p>
+            <p style={{
+                color: actual === expected ?
+                    'green' :
+                    'red'
+            }}>
+                Your result: <b>{actual}</b>
+                {' '}
+                ({actual === expected ?
+                    'correct' :
+                    'wrong'
+                })
+            </p>
+        </>
+    );
+}
+
+export function getFinalState(baseState, queue) {
+    let finalState = baseState;
+
+    queue.forEach(element => {
+        finalState = (increment == element) ? increment(finalState) : element
+    });
+
+    return finalState;
 }
