@@ -1,59 +1,75 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-
 import { useState } from 'react';
 
-export default function Scoreboard() {
-    const [player, setPlayer] = useState({
-        firstName: 'Ranjani',
-        lastName: 'Shettar',
-        score: 10,
-    });
+const initialProducts = [{
+    id: 0,
+    name: 'Baklava',
+    count: 1,
+}, {
+    id: 1,
+    name: 'Cheese',
+    count: 5,
+}, {
+    id: 2,
+    name: 'Spaghetti',
+    count: 2,
+}];
 
-    function handlePlusClick() {
-        setPlayer({
-            ...player,
-            score: player.score + 1,
-        })
+export default function ShoppingCart() {
+    const [
+        products,
+        setProducts
+    ] = useState(initialProducts)
+
+    function handleIncreaseClick(productId) {
+        setProducts(products.map(product => {
+            if (product.id === productId) {
+                return {
+                    ...product,
+                    count: product.count + 1
+                };
+            } else {
+                return product;
+            }
+        }))
     }
-
-    function handleFirstNameChange(e) {
-        setPlayer({
-            ...player,
-            firstName: e.target.value,
-        });
-    }
-
-    function handleLastNameChange(e) {
-        setPlayer({
-            ...player,
-            lastName: e.target.value
-        });
+    function handleDecreaseClick(productId) {
+        setProducts(products.map(product => {
+            if (product.id === productId) {
+                if (product.count === 1) {
+                    return null
+                }
+                return {
+                    ...product,
+                    count: product.count - 1
+                };
+            } else {
+                return product;
+            }
+        }).filter(product => product !== null))
     }
 
     return (
-        <>
-            <label>
-                Score: <b>{player.score}</b>
-                {' '}
-                <button onClick={handlePlusClick}>
-                    +1
-                </button>
-            </label>
-            <label>
-                First name:
-                <input
-                    value={player.firstName}
-                    onChange={handleFirstNameChange}
-                />
-            </label>
-            <label>
-                Last name:
-                <input
-                    value={player.lastName}
-                    onChange={handleLastNameChange}
-                />
-            </label>
-        </>
+        <ul>
+            {products.map(product => (
+                <li key={product.id}>
+                    {product.name}
+                    {' '}
+                    (<b>{product.count}</b>)
+                    <button onClick={() => {
+                        handleIncreaseClick(product.id);
+                    }}>
+                        +
+                    </button>
+                    <button onClick={() => {
+                        handleDecreaseClick(product.id);
+                    }}>
+                        –
+                    </button>
+                </li>
+            ))}
+        </ul>
     );
 }
+
