@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<body>
+    <form id="form">
+        <label>
+            First name:
+            <b id="firstNameText"></b>
+            <input id="firstNameInput" value="Jane" style="display: true">
+        </label>
+        <label>
+            Last name:
+            <b id="lastNameText">Jacobs</b>
+            <input id="lastNameInput" value="Jacobs" style="display: none">
+        </label>
+        <button type="submit" id="editButton">Edit Profile</button>
+        <p><i id="helloText">Hello, Jane Jacobs!</i></p>
+    </form>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <script src='main.js'></script>
+</body>
+</html>
