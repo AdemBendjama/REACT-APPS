@@ -1,8 +1,11 @@
 import Header from "./components/Header";
 import Form from "./components/Form";
 import Table from "./components/Table";
+import { useState } from "react";
 
 function App() {
+
+  const [displayData, setDisplayData] = useState([])
 
   const calculateHandler = (userInput) => {
     // Should be triggered when form is submitted
@@ -29,6 +32,8 @@ function App() {
       });
     }
 
+    setDisplayData(yearlyData)
+
 
     // do something with yearlyData ...
   };
@@ -42,7 +47,7 @@ function App() {
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
 
-      <Table></Table>
+      <Table data={displayData} ></Table>
 
     </div>
   );

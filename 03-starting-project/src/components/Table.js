@@ -1,5 +1,22 @@
 
-function Table() {
+function Table(props) {
+
+    const rows = props.data.map(
+        (year) => {
+            return (
+                <tr>
+                    <td>{year.year}</td>
+                    <td>{year.savingsEndOfYear}</td>
+                    <td>{year.yearlyInterest}</td>
+                    <td>TOTAL INTEREST GAINED</td>
+                    <td>{year.yearlyContribution}</td>
+                </tr>
+            )
+
+        }
+    )
+
+
     return (
         <>
             <table className="result">
@@ -13,13 +30,7 @@ function Table() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>YEAR NUMBER</td>
-                        <td>TOTAL SAVINGS END OF YEAR</td>
-                        <td>INTEREST GAINED IN YEAR</td>
-                        <td>TOTAL INTEREST GAINED</td>
-                        <td>TOTAL INVESTED CAPITAL</td>
-                    </tr>
+                    {rows}
                 </tbody>
             </table>
         </>
