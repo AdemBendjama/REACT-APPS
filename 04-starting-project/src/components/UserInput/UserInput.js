@@ -6,7 +6,16 @@ function UserInput(props) {
 
     const submitHandler = (event) => {
         event.preventDefault()
-        props.onAdd(userInput)
+
+        if (userInput.Name === '' || userInput.Age === '') {
+            alert('Invalid inputs')
+        } else if (userInput.Age <= 0) {
+            alert('user age must be > 0')
+        } else {
+            props.onAdd(userInput)
+        }
+
+
     }
 
     const changeHandler = (input, value) => {
