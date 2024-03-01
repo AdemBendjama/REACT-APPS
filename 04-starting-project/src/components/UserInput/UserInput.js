@@ -13,6 +13,9 @@ function UserInput(props) {
             alert('user age must be > 0')
         } else {
             props.onAdd(userInput)
+            event.target[0].value = ""
+            event.target[1].value = ""
+            setUserInput({ 'Name': '', 'Age': "" })
         }
 
 
