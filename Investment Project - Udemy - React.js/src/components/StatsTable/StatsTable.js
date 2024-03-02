@@ -1,5 +1,5 @@
 import React from "react";
-
+import styles from './StatsTable.module.css'
 function StatsTable(props) {
 
     const formatToUSD = (value) => {
@@ -16,7 +16,7 @@ function StatsTable(props) {
     const { stats } = props
 
     return (
-        <table className="result">
+        <table className={styles.result}>
             <thead>
                 <tr>
                     <th>Year</th>
