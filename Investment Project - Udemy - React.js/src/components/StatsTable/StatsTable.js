@@ -2,6 +2,17 @@ import React from "react";
 
 function StatsTable(props) {
 
+    const formatToUSD = (value) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            currencyDisplay: 'symbol',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+
+        }).format(value)
+    }
+
     const { stats } = props
 
     return (
@@ -21,10 +32,10 @@ function StatsTable(props) {
                     return (
                         <tr key={row.year}>
                             <td>{row.year}</td>
-                            <td>{row.savings}</td>
-                            <td>{row.yearlyInterest}</td>
-                            <td>{row.totalInterest}</td>
-                            <td>{row.totalInvestements}</td>
+                            <td>{formatToUSD(row.savings)}</td>
+                            <td>{formatToUSD(row.yearlyInterest)}</td>
+                            <td>{formatToUSD(row.totalInterest)}</td>
+                            <td>{formatToUSD(row.totalInvestements)}</td>
                         </tr>
                     )
                 })}

@@ -16,7 +16,9 @@ function Form(props) {
     const changeHandler = (event) => {
         const { name, value } = event.target
 
-        setFormData({ ...formData, [name]: value })
+        setFormData((prevData) => {
+            return { ...prevData, [name]: value }
+        })
     }
 
     const resetHandler = (event) => {
