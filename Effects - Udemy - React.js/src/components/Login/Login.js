@@ -17,11 +17,29 @@ const Login = (props) => {
   }, [emailIsValid, passwordIsValid])
 
   useEffect(() => {
-    setEmailIsValid(enteredEmail.includes('@'));
+    const timeOutFunc = setTimeout(() => {
+      setEmailIsValid(enteredEmail.includes('@'));
+    }, 500)
+
+    const cleanUpFunc = () => {
+      clearTimeout(timeOutFunc)
+    }
+
+    return cleanUpFunc
+
   }, [enteredEmail])
 
   useEffect(() => {
-    setPasswordIsValid(enteredPassword.trim().length > 6);
+    const timeOutFunc = setTimeout(() => {
+      setPasswordIsValid(enteredPassword.trim().length > 6);
+    }, 500)
+
+    const cleanUpFunc = () => {
+      clearTimeout(timeOutFunc)
+    }
+
+    return cleanUpFunc
+
   }, [enteredPassword])
 
   const emailChangeHandler = (event) => {
