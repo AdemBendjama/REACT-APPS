@@ -1,13 +1,19 @@
 import { useState } from "react"
 function AddUser(props) {
 
-    const initialInput = { username: '', age: 0 }
+    const initialInput = { username: '', age: '' }
     const [userInput, setUserInput] = useState(initialInput)
     const onSubmit = props.onSubmit
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        onSubmit(userInput)
+
+        if (userInput.age > 0 && userInput.username.trim() !== '') {
+            onSubmit(userInput)
+            setUserInput(initialInput)
+        } else {
+            alert('Unvalid input paramaters !')
+        }
     }
 
     const handleChange = (event) => {
@@ -24,7 +30,7 @@ function AddUser(props) {
     return (
         <form onSubmit={handleSubmit}>
             <div className="input-group">
-                <label htmlFor="username">UserName</label>
+                <label htmlFor="username">Username</label>
                 <input type="text" name="username" id="username"
                     value={userInput.username}
                     onChange={handleChange} />
