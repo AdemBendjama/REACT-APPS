@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import classes from './HeaderCartButton.module.css'
 import cartSVG from '../../assets/cart.svg'
 
-function HeaderCartButton() {
+function HeaderCartButton(props) {
     const [isBumped, setIsBumped] = useState(null)
 
     const handleBump = (event) => {
@@ -14,7 +14,7 @@ function HeaderCartButton() {
 
     return (
         <>
-            <button onClick={handleBump} className={`${classes.button} ${isBumped ? classes.bump : ''}`}>
+            <button onClick={props.onShow} className={`${classes.button} ${isBumped ? classes.bump : ''}`}>
                 <img src={cartSVG} className={classes.icon} alt='Cart Icon' />
                 Your Cart
                 <div className={classes.badge}>5</div>

@@ -2,15 +2,17 @@ import React from 'react'
 import classes from './MealItem.module.css'
 import MealItemForm from './MealItemForm'
 
-function MealItem() {
+function MealItem(props) {
+
+    const { id, name, description, price } = props.mealItem
     return (
         <li className={classes.meal}>
             <div>
-                <h3>Sushi</h3>
-                <div className={classes.description}>Finest Fish and veggies</div>
-                <div className={classes.price} >$24.99</div>
+                <h3>{name}</h3>
+                <div className={classes.description}>{description}</div>
+                <div className={classes.price} >${price}</div>
             </div>
-            <MealItemForm />
+            <MealItemForm mealId={id} mealName={name} />
         </li>
     )
 }

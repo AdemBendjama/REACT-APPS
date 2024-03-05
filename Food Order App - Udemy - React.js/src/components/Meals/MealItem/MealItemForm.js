@@ -2,14 +2,14 @@ import React from 'react'
 import Input from '../../UI/Input'
 import classes from './MealItemForm.module.css'
 
-function MealItemForm() {
+function MealItemForm(props) {
     return (
         <div className={classes.form}>
             <form action="" >
                 <Input
-                    id='sushi'
-                    name='sushi'
-                    label='Sushi'
+                    id={props.mealId}
+                    name={props.mealId}
+                    label={props.mealName}
                     type='number'
                     value='1'
                 />
