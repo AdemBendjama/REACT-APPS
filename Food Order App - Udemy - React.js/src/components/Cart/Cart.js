@@ -9,7 +9,10 @@ function Cart(props) {
 
     const cartItems = props.cartItems.map((item) => {
         return (
-            <CartItem key={item.id} cartItem={{ id: item.id, name: item.name, price: item.price, amount: item.amount }} />
+            <CartItem key={item.id} cartItem={{ id: item.id, name: item.name, price: item.price, amount: item.amount }}
+                onAdd={props.onAdd}
+                onRemove={props.onRemove}
+            />
         )
     })
 

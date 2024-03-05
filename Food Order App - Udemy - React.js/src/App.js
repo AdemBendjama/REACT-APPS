@@ -40,12 +40,28 @@ function App() {
     })
   }
 
-  // const handleAddToCart = (amount) => {
-  //   setItemQuantity((prevState) => {
-  //     return (prevState + amount)
-  //   })
-  //   handleBump()
-  // }
+  const handleCartItemRemove = (id) => {
+    setItemQuantity((prevState) => {
+      return (prevState - 1)
+    })
+    handleBump()
+
+    setCartItems((prevState) => {
+      const itemIndex = prevState.findIndex(item => item.id === id)
+
+      if (itemIndex !== -1) {
+        const itemList = [...prevState]
+        if (itemList[itemIndex].amount === 1) {
+          itemList.splice(itemIndex, 1)
+        } else {
+          itemList[itemIndex].amount -= 1
+        }
+        return itemList
+      }
+    })
+  }
+
+
 
   const handleCartVisibility = () => {
     setCartIsVisible(!cartIsVisible)
@@ -62,7 +78,11 @@ function App() {
 
   return (
     <>
-      {cartIsVisible && <Cart onClose={handleCartVisibility} cartItems={cartItems} />}
+      {cartIsVisible && <Cart cartItems={cartItems}
+        onClose={handleCartVisibility}
+        onAdd={handleCartItemAdd}
+        onRemove={handleCartItemRemove}
+      />}
       <Header itemQuantity={itemQuantity}
         isBumped={isBumped}
         onShow={handleCartVisibility}

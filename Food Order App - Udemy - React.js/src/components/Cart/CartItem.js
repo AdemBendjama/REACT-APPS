@@ -4,6 +4,15 @@ import classes from './CartItem.module.css'
 function CartItem(props) {
 
     const { id, name, price, amount } = props.cartItem
+
+    const handleAddItem = () => {
+        props.onAdd(id, name, parseFloat(price), 1)
+    }
+
+    const handleRemoveItem = () => {
+        props.onRemove(id)
+    }
+
     return (
         <li className={classes['cart-item']} key={id}>
             <div>
@@ -14,8 +23,8 @@ function CartItem(props) {
                 </div>
             </div>
             <div className={classes.actions}>
-                <button >-</button>
-                <button >+</button>
+                <button onClick={handleRemoveItem} >-</button>
+                <button onClick={handleAddItem} >+</button>
             </div>
         </li>
     )
