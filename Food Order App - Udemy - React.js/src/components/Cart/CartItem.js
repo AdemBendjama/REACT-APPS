@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import classes from './CartItem.module.css'
+import CartContext from '../../store/cart-context'
 
 function CartItem(props) {
+
+    const context = useContext(CartContext)
+
 
     const { id, name, price, amount } = props.cartItem
 
     const handleAddItem = () => {
-        props.onAdd(id, name, parseFloat(price), 1)
+        context.onAdd(id, name, parseFloat(price), 1)
     }
 
     const handleRemoveItem = () => {
-        props.onRemove(id)
+        context.onRemove(id)
     }
 
     return (

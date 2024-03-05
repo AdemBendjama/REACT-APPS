@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Input from '../../UI/Input'
 import classes from './MealItemForm.module.css'
+import CartContext from '../../../store/cart-context'
 
 function MealItemForm(props) {
+
+    const context = useContext(CartContext)
 
     const [amountState, setAmountState] = useState(1)
 
@@ -12,7 +15,7 @@ function MealItemForm(props) {
 
     const handleAddSubmit = (event) => {
         event.preventDefault()
-        props.onAdd(props.mealId, props.mealName, parseFloat(props.mealPrice), parseInt(amountState))
+        context.onAdd(props.mealId, props.mealName, parseFloat(props.mealPrice), parseInt(amountState))
     }
 
     return (

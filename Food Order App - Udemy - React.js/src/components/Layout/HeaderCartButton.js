@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import classes from './HeaderCartButton.module.css'
 import cartSVG from '../../assets/cart.svg'
+import CartContext from '../../store/cart-context'
 
-function HeaderCartButton(props) {
+function HeaderCartButton() {
+
+    const context = useContext(CartContext)
 
     return (
         <>
-            <button onClick={props.onShow} className={`${classes.button} ${props.isBumped ? classes.bump : ''}`}>
+            <button onClick={context.onToggle} className={`${classes.button} ${context.isBumped ? classes.bump : ''}`}>
                 <img src={cartSVG} className={classes.icon} alt='Cart Icon' />
                 Your Cart
-                <div className={classes.badge}>{props.itemQuantity}</div>
+                <div className={classes.badge}>{context.itemQuantity}</div>
             </button >
         </>
     )

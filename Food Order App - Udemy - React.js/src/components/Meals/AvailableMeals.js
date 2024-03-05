@@ -29,16 +29,14 @@ const mealsData = [
         price: 18.99
     }
 ]
-function AvailableMeals(props) {
+function AvailableMeals() {
 
     return (
         <div className={classes.meals}>
             <Card>
                 <ul>
                     {mealsData.map((meal) => <MealItem key={meal.id}
-                        mealItem={meal}
-                        onBump={props.onBump}
-                        onAdd={props.onAdd} />)}
+                        mealItem={meal} />)}
                 </ul>
             </Card>
         </div>

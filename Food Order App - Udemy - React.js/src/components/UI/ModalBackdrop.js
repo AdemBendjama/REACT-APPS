@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import classes from './Modal.module.css'
+import CartContext from '../../store/cart-context'
 
 function ModalBackdrop(props) {
+
+    const context = useContext(CartContext)
+
     return (
-        <div className={classes.backdrop} onClick={props.onClose} />
+        <div className={classes.backdrop} onClick={context.onToggle} />
     )
 }
 

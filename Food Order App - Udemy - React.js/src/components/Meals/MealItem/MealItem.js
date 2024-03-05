@@ -14,9 +14,7 @@ function MealItem(props) {
             </div>
             <MealItemForm mealId={id}
                 mealName={name}
-                mealPrice={price}
-                onBump={props.onBump}
-                onAdd={props.onAdd} />
+                mealPrice={price} />
         </li>
     )
 }

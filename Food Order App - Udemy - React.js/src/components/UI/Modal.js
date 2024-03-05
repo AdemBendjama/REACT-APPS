@@ -4,13 +4,14 @@ import ModalBackdrop from './ModalBackdrop'
 import { createPortal } from 'react-dom'
 
 
-function Modal(props) {
+function Modal({ children }) {
+
     const modal = createPortal(
         <>
-            <ModalBackdrop onClose={props.onClose} />
+            <ModalBackdrop />
 
             <div className={classes.modal}>
-                {props.children}
+                {children}
             </div>
         </>, document.getElementById('overlay'))
 
