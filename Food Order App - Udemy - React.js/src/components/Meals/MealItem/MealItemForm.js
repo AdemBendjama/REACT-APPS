@@ -12,7 +12,7 @@ function MealItemForm(props) {
 
     const handleAddSubmit = (event) => {
         event.preventDefault()
-        props.onAdd(parseInt(amountState))
+        props.onAdd(props.mealId, props.mealName, parseFloat(props.mealPrice), parseInt(amountState))
     }
 
     return (

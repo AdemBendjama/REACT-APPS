@@ -12,7 +12,11 @@ function MealItem(props) {
                 <div className={classes.description}>{description}</div>
                 <div className={classes.price} >${price}</div>
             </div>
-            <MealItemForm mealId={id} onBump={props.onBump} onAdd={props.onAdd} />
+            <MealItemForm mealId={id}
+                mealName={name}
+                mealPrice={price}
+                onBump={props.onBump}
+                onAdd={props.onAdd} />
         </li>
     )
 }

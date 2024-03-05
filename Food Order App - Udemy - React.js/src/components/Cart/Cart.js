@@ -3,18 +3,36 @@ import Modal from '../UI/Modal'
 import classes from './Cart.module.css'
 import CartItem from './CartItem'
 
+
+
 function Cart(props) {
 
+    const cartItems = props.cartItems.map((item) => {
+        return (
+            <CartItem key={item.id} cartItem={{ id: item.id, name: item.name, price: item.price, amount: item.amount }} />
+        )
+    })
+
+    const totalAmount = props.cartItems.reduce((total, item) => {
+        return (
+            total + (item.price * item.amount)
+        )
+    }, 0)
+
+    const formattedAmmount = Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+    }).format(totalAmount)
 
     return (
         <Modal onClose={props.onClose}>
             <ul className={classes['cart-items']}>
-                <CartItem key='sushi' cartItem={{ id: 'sushi', name: 'Sushi', price: 23.00, amount: 2 }} />
-                <CartItem key='barbecue-burger' cartItem={{ id: 'barbecue-burger', name: 'Barbecue Burger', price: 12.99, amount: 1 }} />
+                {cartItems}
             </ul>
             <div className={classes.total}>
                 <h2>Total Amount</h2>
-                <div>$55.99</div>
+                <div>{formattedAmmount}</div>
             </div>
             <div className={classes.actions}>
                 <button className={classes['button--alt']} onClick={props.onClose}>Close</button>

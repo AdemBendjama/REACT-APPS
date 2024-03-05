@@ -9,13 +9,43 @@ function App() {
 
   const [cartIsVisible, setCartIsVisible] = useState(false)
   const [itemQuantity, setItemQuantity] = useState(0)
+  const [cartItems, setCartItems] = useState([])
 
-  const handleAddToCart = (amount) => {
+  const handleCartItemAdd = (id, name, price, amount) => {
     setItemQuantity((prevState) => {
       return (prevState + amount)
     })
     handleBump()
+
+    setCartItems((prevState) => {
+
+      const itemIndex = prevState.findIndex((item) => item.id === id)
+
+      if (itemIndex !== -1) {
+        const itemList = [...prevState]
+        itemList[itemIndex].amount += amount
+        return itemList
+      }
+
+      return (
+        [...prevState,
+        {
+          id: id,
+          name: name,
+          price: price,
+          amount: amount,
+        },
+        ]
+      )
+    })
   }
+
+  // const handleAddToCart = (amount) => {
+  //   setItemQuantity((prevState) => {
+  //     return (prevState + amount)
+  //   })
+  //   handleBump()
+  // }
 
   const handleCartVisibility = () => {
     setCartIsVisible(!cartIsVisible)
@@ -32,13 +62,13 @@ function App() {
 
   return (
     <>
-      {cartIsVisible && <Cart onClose={handleCartVisibility} />}
+      {cartIsVisible && <Cart onClose={handleCartVisibility} cartItems={cartItems} />}
       <Header itemQuantity={itemQuantity}
         isBumped={isBumped}
         onShow={handleCartVisibility}
       />
       <MealsSummary />
-      <AvailableMeals onBump={handleBump} onAdd={handleAddToCart} />
+      <AvailableMeals onBump={handleBump} onAdd={handleCartItemAdd} />
     </>
   );
 }
