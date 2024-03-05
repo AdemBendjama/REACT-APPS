@@ -8,7 +8,10 @@ function Header(props) {
         <>
             <header className={classes.header}>
                 <h1>ReactMeals</h1>
-                <HeaderCartButton onShow={props.onShow} />
+                <HeaderCartButton itemQuantity={props.itemQuantity}
+                    isBumped={props.isBumped}
+                    onShow={props.onShow}
+                    onAdd={props.onAdd} />
             </header>
             <div className={classes['main-image']}>
                 <img src={mealsImage} alt="A table full of food in a restaurant" />

@@ -4,11 +4,13 @@ import classes from './Cart.module.css'
 import CartItem from './CartItem'
 
 function Cart(props) {
+
+
     return (
         <Modal onClose={props.onClose}>
             <ul className={classes['cart-items']}>
-                <CartItem cartItem={{ name: 'Sushi', price: 23.00, amount: 2 }} />
-                <CartItem cartItem={{ name: 'Burger', price: 12.99, amount: 1 }} />
+                <CartItem key='sushi' cartItem={{ id: 'sushi', name: 'Sushi', price: 23.00, amount: 2 }} />
+                <CartItem key='barbecue-burger' cartItem={{ id: 'barbecue-burger', name: 'Barbecue Burger', price: 12.99, amount: 1 }} />
             </ul>
             <div className={classes.total}>
                 <h2>Total Amount</h2>

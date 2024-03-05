@@ -1,19 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../../UI/Input'
 import classes from './MealItemForm.module.css'
 
 function MealItemForm(props) {
+
+    const [amountState, setAmountState] = useState(1)
+
+    const handleAmountChange = (event) => {
+        setAmountState(event.target.value)
+    }
+
+    const handleAddSubmit = (event) => {
+        event.preventDefault()
+        props.onAdd(parseInt(amountState))
+    }
+
     return (
         <div className={classes.form}>
-            <form action="" >
+            <form onSubmit={handleAddSubmit} >
                 <Input
                     id={props.mealId}
                     name={props.mealId}
-                    label={props.mealName}
                     type='number'
-                    value='1'
+                    value={amountState}
+                    onChange={handleAmountChange}
                 />
-                <button>
+                <button type='submit'>
                     + Add</button>
             </form>
         </div>

@@ -3,9 +3,9 @@ import classes from './CartItem.module.css'
 
 function CartItem(props) {
 
-    const { name, price, amount } = props.cartItem
+    const { id, name, price, amount } = props.cartItem
     return (
-        <li className={classes['cart-item']}>
+        <li className={classes['cart-item']} key={id}>
             <div>
                 <h2>{name}</h2>
                 <div className={classes.summary}>
