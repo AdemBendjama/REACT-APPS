@@ -5,8 +5,9 @@ const NewTask = (props) => {
 
   return (
     <Section>
-      <TaskForm onAddTask={props.onAddTask} loading={props.isLoading} />
-      {props.error && <p>{props.error}</p>}
+
+      <TaskForm onAddTask={props.onAddTask} />
+
     </Section>
   );
 };

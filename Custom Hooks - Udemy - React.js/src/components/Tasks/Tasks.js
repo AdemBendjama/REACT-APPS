@@ -1,5 +1,6 @@
 import Spinner from '../../assets/Spinner';
 import Section from '../UI/Section';
+import DeleteTask from './DeleteTask';
 import TaskItem from './TaskItem';
 import classes from './Tasks.module.css';
 
@@ -10,7 +11,10 @@ const Tasks = (props) => {
     taskList = (
       <ul>
         {props.items.map((task) => (
-          <TaskItem key={task.id}>{task.text}</TaskItem>
+          <div key={task.id}>
+            <TaskItem key={task.id}>{task.text}</TaskItem>
+            <DeleteTask taskID={task.id} onDelete={props.onDelete} />
+          </div>
         ))}
       </ul>
     );
