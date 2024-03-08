@@ -71,6 +71,30 @@ function App() {
     }
   }
 
+  const handleDeleteMovie = async (movieID) => {
+    try {
+      setIsLoading(true)
+      const response = await fetch(
+        `https://react-http-43d61-default-rtdb.europe-west1.firebasedatabase.app/movies/${movieID}.json`,
+        {
+          method: 'DELETE'
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error('Failed to Delete Movie')
+      }
+
+      setMovies(prevState => prevState.filter(movie => movie.id !== movieID))
+      handleFetchMovies()
+
+    } catch (error) {
+      console.log(error);
+      setError(error.message)
+    }
+
+  }
+
   useEffect(() => {
     handleFetchMovies()
   }, [handleFetchMovies])
@@ -85,7 +109,7 @@ function App() {
         <AddMovie onAddMovie={handleAddMovie} />
         {isLoading
           ? <Spinner />
-          : <MoviesList movies={movies} />
+          : <MoviesList movies={movies} onDelete={handleDeleteMovie} />
         }
         {error && !isLoading && <p>Error: {error}</p>}
 
