@@ -1,0 +1,44 @@
+{
+  "movies": {
+    "-NsSfWBSqPrjDRt7lXn8": {
+      "openingText": "Indeed it is ur moms",
+      "releaseDate": "2020-06-09",
+      "title": "Yo mama"
+    },
+    "-NsSg9ze71Hfrxhixt4-": {
+      "openingText": "Wolverine on the hunt to rid himself of the guilt of loosing all of his friends",
+      "releaseDate": "2019-06-18",
+      "title": "Logan"
+    }
+  },
+  
+  "meals": {
+    "-DAIEHDMLADNzadjazpdmbjmdwnvp": {
+      "id": "sushi",
+      "name": "Sushi",
+      "description": "Fresh fish and veggies",
+      "price": 22.99
+    },
+    "-SQokb5dfGDFg_blqsd": {
+      "id": "schnitzel",
+      "name": "Schnitzel",
+      "description": "A german speciality!",
+      "price": 16.5
+    },
+    "-foSDFfksdfg_DSFGJdfsgm546": {
+      "id": "barbecue-burger",
+      "name": "Barbecue Burger",
+      "description": "American, raw, meaty",
+      "price": 12.99
+    },
+    "-bls_64gdfgPlmlkx": {
+      "id": "green-bowl",
+      "name": "Green Bowl",
+      "description": "Healthy...and green...",
+      "price": 18.99
+    }
+  
+}
+
+  
+}

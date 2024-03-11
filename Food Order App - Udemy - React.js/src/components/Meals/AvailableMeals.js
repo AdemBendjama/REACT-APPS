@@ -1,41 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './AvailableMeals.module.css'
 import MealItem from './MealItem/MealItem'
 import Card from '../UI/Card'
+import useFetch from '../../hooks/fetch-hook'
 
-const mealsData = [
-    {
-        id: 'sushi',
-        name: 'Sushi',
-        description: 'Fresh fish and veggies',
-        price: 22.99
-    },
-    {
-        id: 'schnitzel',
-        name: 'Schnitzel',
-        description: 'A german speciality!',
-        price: 16.50
-    },
-    {
-        id: 'barbecue-burger',
-        name: 'Barbecue Burger',
-        description: 'American, raw, meaty',
-        price: 12.99
-    },
-    {
-        id: 'green-bowl',
-        name: 'Green Bowl',
-        description: 'Healthy...and green...',
-        price: 18.99
-    }
-]
 function AvailableMeals() {
+    const { error, isLoading, fetchRequest } = useFetch()
+    const [meals, setMeals] = useState([])
+
+    const formatData = (data) => {
+        let meals = []
+        for (const key in data) {
+            meals.push({
+                id: data[key].id,
+                name: data[key].name,
+                description: data[key].description,
+                price: data[key].price,
+            })
+        }
+        setMeals(meals)
+    }
+
+    useEffect(() => {
+        fetchRequest(
+            {
+                method: "GET",
+                url: "https://react-http-43d61-default-rtdb.europe-west1.firebasedatabase.app/meals.json",
+            },
+            formatData
+        )
+
+    }, [])
 
     return (
         <div className={classes.meals}>
             <Card>
                 <ul>
-                    {mealsData.map((meal) => <MealItem key={meal.id}
+                    {meals.map((meal) => <MealItem key={meal.id}
                         mealItem={meal} />)}
                 </ul>
             </Card>
