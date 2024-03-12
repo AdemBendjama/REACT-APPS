@@ -84,6 +84,12 @@ export const CartContextProvider = ({ children }) => {
         }, 300);
     }
 
+    const clearCartItems = () => {
+        setCartItems([])
+        setItemQuantity(0)
+    }
+
+
 
     return (
         <CartContext.Provider value={{
@@ -93,7 +99,8 @@ export const CartContextProvider = ({ children }) => {
             cartIsVisible,
             onToggle: handleCartVisibility,
             onAdd: handleCartItemAdd,
-            onRemove: handleCartItemRemove
+            onRemove: handleCartItemRemove,
+            onReset: clearCartItems
         }}>
             {children}
         </CartContext.Provider>

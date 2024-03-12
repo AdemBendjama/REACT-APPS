@@ -19,6 +19,8 @@ function useFetch() {
 
             );
 
+            console.log(response);
+
             if (!response.ok) {
                 throw new Error('Request failed!');
             }

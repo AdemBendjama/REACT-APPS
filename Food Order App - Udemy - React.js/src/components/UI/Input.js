@@ -2,16 +2,17 @@ import React from 'react'
 import classes from './Input.module.css'
 function Input(props) {
     return (
-        <div className={classes.input}>
-            <label htmlFor={props.id}>Amount</label>
+        <div className={`${classes.input} ${props.error ? classes.error : ''}`}>
+            <label htmlFor={props.id}>{props.label}</label>
             <input
                 id={props.id}
                 name={props.name}
                 type={props.type}
                 value={props.value}
                 onChange={props.onChange}
-                min={1}
+                onBlur={props.onBlur}
             />
+            {props.error && props.errorMsg}
         </div>
     )
 }

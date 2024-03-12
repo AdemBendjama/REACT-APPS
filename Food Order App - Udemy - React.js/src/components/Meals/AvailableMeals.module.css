@@ -1,6 +1,7 @@
 .meals {
     max-width: 60rem;
     width: 90%;
+    align-items: center;
     margin: 2rem auto;
     animation: meals-appear 1s ease-out forwards;
 }
@@ -9,6 +10,11 @@
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
 }
 
 @keyframes meals-appear {

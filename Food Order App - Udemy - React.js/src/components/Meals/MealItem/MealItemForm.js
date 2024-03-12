@@ -24,6 +24,7 @@ function MealItemForm(props) {
                 <Input
                     id={props.mealId}
                     name={props.mealId}
+                    label="Amount"
                     type='number'
                     value={amountState}
                     onChange={handleAmountChange}
