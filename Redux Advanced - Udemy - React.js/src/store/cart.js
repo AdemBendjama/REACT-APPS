@@ -21,6 +21,17 @@ const cartSlice = createSlice({
                     price: action.payload.price
                 })
             }
+        },
+        removeItem(state, action) {
+            const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id);
+
+            if (itemIndex !== -1) {
+                if (state.cartItems[itemIndex].quantity === 1) {
+                    state.cartItems.splice(itemIndex, 1);
+                } else {
+                    state.cartItems[itemIndex].quantity -= 1;
+                }
+            }
         }
     }
 })
