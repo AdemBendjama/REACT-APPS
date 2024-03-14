@@ -7,6 +7,7 @@ const Cart = (props) => {
   const cartItems = useSelector(state => state.cart.cartItems)
   const isEmpty = cartItems.length === 0
 
+
   return (
     <Card className={classes.cart}>
       <h2>Your Shopping Cart</h2>
@@ -16,7 +17,7 @@ const Cart = (props) => {
         }
         {!isEmpty &&
           cartItems.map(item => (
-            <CartItem
+            <CartItem key={item.id}
               item={{ id: item.id, title: item.title, quantity: item.quantity, price: item.price }}
             />
           ))
