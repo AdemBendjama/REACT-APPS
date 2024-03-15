@@ -1,57 +1,35 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchCartitems, putCartItems } from './store/cart-actions';
 import Cart from './components/Cart/Cart';
 import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
-import { useEffect } from 'react';
-import { cartActions } from './store/cart';
+import Notification from './components/UI/Notification';
 
 function App() {
-  const cartIsVisible = useSelector(state => state.cart.showCart)
-  const cartItems = useSelector(state => state.cart.cartItems)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const cartIsVisible = useSelector(state => state.ui.showCart);
+  const cartItems = useSelector(state => state.cart.cartItems);
+  const changed = useSelector(state => state.cart.changed)
+  const notification = useSelector(state => state.ui.notification);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('https://react-http-43d61-default-rtdb.europe-west1.firebasedatabase.app/cartItems.json',
-        {
-          method: 'GET',
-        })
-      if (!response.ok) {
-        return
-      }
-      const data = await response.json()
+    dispatch(fetchCartitems())
+  }, [dispatch]);
 
-      const itemsFetched = []
-
-      for (const key in data) {
-        const item = {
-          id: data[key].id,
-          title: data[key].title,
-          quantity: data[key].quantity,
-          price: data[key].price
-        }
-        itemsFetched.push(item)
-      }
-
-      dispatch(cartActions.replace({ cartItems: itemsFetched }))
-    }
-
-    fetchData()
-
-  }, [dispatch])
   useEffect(() => {
-    fetch('https://react-http-43d61-default-rtdb.europe-west1.firebasedatabase.app/cartItems.json',
-      {
-        method: 'PUT',
-        body: JSON.stringify(cartItems),
-      })
-  }, [cartItems])
+    dispatch(putCartItems({ cartItems, changed }))
+  }, [cartItems, changed, dispatch]);
 
   return (
-    <Layout>
-      {cartIsVisible && <Cart />}
-      <Products />
-    </Layout>
+    <>
+      {notification.active && <Notification status={notification.status} title={notification.title} message={notification.message} />}
+      <Layout>
+        {cartIsVisible && <Cart />}
+        <Products />
+      </Layout>
+    </>
   );
 }
 
