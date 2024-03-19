@@ -1,10 +1,12 @@
 import React from 'react'
 import EventsList from '../components/EventsList'
 
-function EventsPage({ events }) {
+function EventsPage() {
+
     return (
-        <EventsList events={events} />
+        <EventsList />
     )
 }
 
 export default EventsPage
+
