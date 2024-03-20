@@ -1,7 +1,7 @@
-import { json } from 'react-router-dom'
+import { defer, json } from 'react-router-dom'
 
 // Loader for Fetching the list of Events
-export async function fetchEvents() {
+async function fetchEvents() {
     try {
         const response = await fetch('http://localhost:8080/events')
 
@@ -9,7 +9,8 @@ export async function fetchEvents() {
             throw new Error('Oops! Something went wrong while fetching events.')
         }
 
-        return response
+        const data = await response.json()
+        return data.events
 
     } catch (error) {
         throw json({ message: error.message }, { status: 500 })
@@ -17,17 +18,19 @@ export async function fetchEvents() {
 
 }
 
+
 // Loader for fetching details of an event
-export async function fetchEventDetails({ params }) {
+async function fetchEventDetails(eventID) {
 
     try {
-        const response = await fetch(`http://localhost:8080/events/${params.eventID}`)
+        const response = await fetch(`http://localhost:8080/events/${eventID}`)
 
         if (!response.ok) {
             throw new Error('Oops! Something went wrong while fetching events.')
         }
 
-        return response
+        const data = await response.json()
+        return data.event
 
     } catch (error) {
         throw json({ message: error.message }, { status: 500 })
@@ -35,3 +38,14 @@ export async function fetchEventDetails({ params }) {
 
 }
 
+export function eventsLoader() {
+    return defer({
+        events: fetchEvents(),
+    })
+}
+
+export function eventDetailsLoader({ params }) {
+    return defer({
+        event: fetchEventDetails(params.eventID)
+    })
+}
