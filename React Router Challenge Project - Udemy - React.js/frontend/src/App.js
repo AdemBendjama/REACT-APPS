@@ -1,23 +1,15 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import HomePage from './page/Home';
+import ErrorPage from './page/Error';
+import RootLayout from './page/Root';
 import EventsPage from './page/Events';
-import EventDetailPage from './page/EventDetail';
 import NewEventPage from './page/NewEvent';
 import EditEventPage from './page/EditEvent';
-import RootLayout from './page/Root';
 import EventRootLayout from './page/EventRoot';
-import { eventsLoader } from './components/Loader';
-import ErrorPage from './page/Error';
+import EventDetailPage from './page/EventDetail';
+import { deleteEvent, saveEvent } from './components/Actions';
+import { fetchEventDetails, fetchEvents } from './components/Loader';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-const events = [
-  {
-    "id": "e1",
-    "title": "A dummy event",
-    "date": "2023-02-22",
-    "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-    "description": "Join this amazing event and connect with fellow developers."
-  }
-]
 
 const router = createBrowserRouter([
   {
@@ -29,17 +21,18 @@ const router = createBrowserRouter([
       {
         path: 'events',
         element: <EventRootLayout />,
-
         children: [
-          { index: true, element: <EventsPage events={events} />, loader: eventsLoader },
+          { index: true, element: <EventsPage />, loader: fetchEvents },
           {
             path: ':eventID',
+            id: 'event-detail',
+            loader: fetchEventDetails,
             children: [
-              { index: true, element: <EventDetailPage events={events} /> },
-              { path: 'edit', element: <EditEventPage /> }
+              { index: true, element: <EventDetailPage />, action: deleteEvent },
+              { path: 'edit', element: <EditEventPage />, action: saveEvent }
             ]
           },
-          { path: 'new', element: <NewEventPage /> },
+          { path: 'new', element: <NewEventPage />, action: saveEvent },
         ]
       },
     ]
