@@ -60,3 +60,12 @@ export async function deleteEvent({ params }) {
         throw json({ message: error.message }, { status: 500 });
     }
 }
+
+export async function submitNewsLetter({ request, params }) {
+    const data = await request.formData();
+    const email = data.get('email');
+
+    // send to backend newsletter server ...
+    console.log(email);
+    return { message: 'Signup successful!' };
+}

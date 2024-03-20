@@ -6,9 +6,10 @@ import NewEventPage from './page/NewEvent';
 import EditEventPage from './page/EditEvent';
 import EventRootLayout from './page/EventRoot';
 import EventDetailPage from './page/EventDetail';
-import { deleteEvent, saveEvent } from './components/Actions';
+import { deleteEvent, saveEvent, submitNewsLetter } from './components/Actions';
 import { fetchEventDetails, fetchEvents } from './components/Loader';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import NewsletterPage from './page/Newsletter';
 
 
 const router = createBrowserRouter([
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
           { path: 'new', element: <NewEventPage />, action: saveEvent },
         ]
       },
+      { path: 'newsletter', element: <NewsletterPage />, action: submitNewsLetter }
     ]
   }
 ]);
