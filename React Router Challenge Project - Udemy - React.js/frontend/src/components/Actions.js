@@ -27,6 +27,10 @@ export async function saveEvent({ request, params }) {
             }
         });
 
+        if (response.status === 422) {
+            return response
+        }
+
         if (!response.ok) {
             throw new Error('Failed to save event data');
         }
