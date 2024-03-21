@@ -4,7 +4,7 @@ import MainNavigation from '../components/MainNavigation';
 
 function ErrorPage() {
     const error = useRouteError();
-    let title = 'Undefined Error';
+    let title = 'Oops something went wrong';
     let message = 'Something went wrong. Please try again later.';
 
     if (error.status === 500) {
