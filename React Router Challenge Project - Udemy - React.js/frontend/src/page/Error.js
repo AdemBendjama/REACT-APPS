@@ -17,6 +17,11 @@ function ErrorPage() {
         message = 'The page you are looking for does not exist.';
     }
 
+    if (error.status === 401) {
+        title = 'Unauthorized 401';
+        message = 'Action/Page requires authorized privileges';
+    }
+
     if (error.data && error.data.message) {
         message = error.data.message;
     }

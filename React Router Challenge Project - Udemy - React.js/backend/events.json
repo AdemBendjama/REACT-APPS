@@ -1,12 +1,1 @@
-{
-  "events": [
-    {
-      "title": "A new event",
-      "image": "https://cdn.muenchen-p.de/fl_progressive,q_65/.imaging/stk/responsive/teaser300/dms/va-2016/muenchner-christkindlmarkt/christkindlmarkt-marienplat-logo-hp/document/christkindlmarkt-marienplat-logo-hp.jpg",
-      "date": "2022-10-01",
-      "description": "Some awesome event!",
-      "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"
-    }
-  ],
-  "users": []
-}
+{"events":[{"title":"Lunar Event","image":"https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/01/a0001933/img/basic/a0001933_main.jpg","date":"2222-02-02","description":"Nice Event i Swear !!!","id":"e1e8de98-1f3b-4b6e-8f47-fd6453a6992e"},{"title":"A new event","image":"https://cdn.muenchen-p.de/fl_progressive,q_65/.imaging/stk/responsive/teaser300/dms/va-2016/muenchner-christkindlmarkt/christkindlmarkt-marienplat-logo-hp/document/christkindlmarkt-marienplat-logo-hp.jpg","date":"2022-10-01","description":"Some awesome event!","id":"2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"}],"users":[{"email":"adambendjamaa2013@gmail.com","password":"$2a$12$gpPkqwPykSj0RRYeEWsFeeowOe2TJkBjjEGGvMbIO63m3H4k4UcQa","id":"4dcbc998-2bd5-4928-a737-bcbb9a637080"}]}

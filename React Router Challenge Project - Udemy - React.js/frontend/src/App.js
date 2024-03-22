@@ -11,6 +11,7 @@ import { eventsLoader, eventDetailsLoader } from './components/Loader';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { authenticateUser, deleteEvent, saveEvent, submitNewsLetter } from './components/Actions';
 import AuthenticationPage from './page/Authentication';
+import { logout, tokenLoader } from './util/auth';
 
 
 const router = createBrowserRouter([
@@ -18,6 +19,8 @@ const router = createBrowserRouter([
     path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    id: 'root',
+    loader: tokenLoader,
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -38,7 +41,9 @@ const router = createBrowserRouter([
         ]
       },
       { path: 'newsletter', element: <NewsletterPage />, action: submitNewsLetter },
-      { path: 'auth', element: <AuthenticationPage />, action: authenticateUser }
+      { path: 'auth', element: <AuthenticationPage />, action: authenticateUser },
+      { path: 'logout', action: logout },
+
     ]
   }
 ]);

@@ -1,7 +1,9 @@
 import { json, redirect } from 'react-router-dom';
+import { getAuthToken } from '../util/auth';
 
 // Action for handling POST and PATCH operations
 export async function saveEvent({ request, params }) {
+    let errorStatus = 500
     try {
         let url = 'http://localhost:8080/events';
         let redirectUrl = '/events';
@@ -18,17 +20,23 @@ export async function saveEvent({ request, params }) {
             url += '/' + params.eventID;
             redirectUrl += '/' + params.eventID;
         }
-
+        const authToken = getAuthToken()
         const response = await fetch(url, {
             method: request.method,
             body: JSON.stringify(event),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'hehe ' + authToken
             }
         });
 
         if (response.status === 422) {
             return response
+        }
+
+        if (response.status === 401) {
+            errorStatus = 401
+            throw new Error('Failed to save event data');
         }
 
         if (!response.ok) {
@@ -37,18 +45,24 @@ export async function saveEvent({ request, params }) {
 
         return redirect(redirectUrl);
     } catch (error) {
-        throw json({ message: error.message }, { status: 500 });
+        throw json({ message: error.message }, { status: errorStatus });
     }
 }
 
 // Action for handling DELETE operation
 export async function deleteEvent({ params }) {
+    let errorStatus = 500
     try {
         const url = `http://localhost:8080/events/${params.eventID}`;
 
         const response = await fetch(url, {
             method: 'DELETE',
         });
+
+        if (response.status === 401) {
+            errorStatus = 401
+            throw new Error('Failed to delete event');
+        }
 
         if (!response.ok) {
             throw new Error('Failed to delete event');
@@ -57,7 +71,7 @@ export async function deleteEvent({ params }) {
         return redirect('/events');
 
     } catch (error) {
-        throw json({ message: error.message }, { status: 500 });
+        throw json({ message: error.message }, { status: errorStatus });
     }
 }
 
@@ -81,10 +95,10 @@ export async function authenticateUser({ request }) {
             throw new Error('Unsupported Mode');
         }
 
-        const data = await request.formData();
+        const formData = await request.formData();
         const authData = {
-            email: data.get('email'),
-            password: data.get('password')
+            email: formData.get('email'),
+            password: formData.get('password')
         }
 
         const url = `http://localhost:8080/` + mode;
@@ -104,6 +118,10 @@ export async function authenticateUser({ request }) {
         if (!response.ok) {
             throw new Error('Failed To Login/Signup');
         }
+
+        const data = await response.json()
+        const token = data.token
+        localStorage.setItem('token', token)
 
         return redirect('/');
 

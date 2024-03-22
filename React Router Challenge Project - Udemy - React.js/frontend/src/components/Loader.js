@@ -21,8 +21,8 @@ async function fetchEvents() {
 
 // Loader for fetching details of an event
 async function fetchEventDetails(eventID) {
-
     try {
+
         const response = await fetch(`http://localhost:8080/events/${eventID}`)
 
         if (!response.ok) {
@@ -44,8 +44,8 @@ export function eventsLoader() {
     })
 }
 
-export function eventDetailsLoader({ params }) {
+export async function eventDetailsLoader({ params }) {
     return defer({
-        event: fetchEventDetails(params.eventID)
+        event: await fetchEventDetails(params.eventID)
     })
 }

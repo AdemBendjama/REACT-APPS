@@ -4,6 +4,7 @@ import { Await, useRouteLoaderData } from 'react-router-dom'
 
 function EventDetailPage() {
     const { event } = useRouteLoaderData("event-detail")
+    console.log(event);
 
     return (
         <Suspense fallback={<p>Loading...</p>}>
