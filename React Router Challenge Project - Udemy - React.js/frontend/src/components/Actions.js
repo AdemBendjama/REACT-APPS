@@ -121,7 +121,10 @@ export async function authenticateUser({ request }) {
 
         const data = await response.json()
         const token = data.token
+        const expiration = new Date()
+        expiration.setMinutesy(expiration.getMinutes() + 1)
         localStorage.setItem('token', token)
+        localStorage.setItem('expiration', expiration.toISOString())
 
         return redirect('/');
 

@@ -7,11 +7,11 @@ import EditEventPage from './page/EditEvent';
 import NewsletterPage from './page/Newsletter';
 import EventRootLayout from './page/EventRoot';
 import EventDetailPage from './page/EventDetail';
-import { eventsLoader, eventDetailsLoader } from './components/Loader';
+import { logout, tokenLoader } from './util/auth';
+import AuthenticationPage from './page/Authentication';
+import { eventsLoader, eventDetailsLoader } from './components/Loaders';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { authenticateUser, deleteEvent, saveEvent, submitNewsLetter } from './components/Actions';
-import AuthenticationPage from './page/Authentication';
-import { logout, tokenLoader } from './util/auth';
 
 
 const router = createBrowserRouter([
