@@ -1,19 +1,9 @@
 import MeetupDetail from '@/components/meetups/MeetupDetail'
-import { useRouter } from 'next/router'
 import React from 'react'
+//! Server-Side Imports
+import { MongoClient, ObjectId, ServerApiVersion } from 'mongodb'
 
 function MeetupDetailPage(props) {
-    // const router = useRouter()
-    // const meetupId = router.query.meetupId
-    // // fetch item from backend with the id
-    // // dummy object for testing
-    // const meetup = {
-    //     id: meetupId,
-    //     title: 'A First Meetup',
-    //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg',
-    //     address: 'Some address 5, 12345 Some City',
-    //     description: 'This is a first meetup!'
-    // }
     const meetup = props.meetup
 
     return (
@@ -21,34 +11,67 @@ function MeetupDetailPage(props) {
     )
 }
 
-export function getStaticPaths() {
-    // fallback false means all listed params are all the possible values for the dnamic url so anything outside of it throws a 404 error
-    // fallback true means the listed params are some and any new params would result in getStaticProps to excute
+
+//! Server-Side Code
+
+export async function getStaticPaths() {
+    const uri = "mongodb+srv://adambendjamaa:7cJi3wSkl5Od69hg@cluster0.mzrllbz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+    const client = new MongoClient(uri, {
+        serverApi: {
+            version: ServerApiVersion.v1,
+            strict: true,
+            deprecationErrors: true,
+        }
+    });
+
+    await client.connect()
+    const cursor = client.db('meetups').collection('meetups').find({}, { _id: 1 })
+    const data = await cursor.toArray()
+
+    const paths = data.map(obj => ({
+        params: {
+            meetupId: obj._id.toString()
+        }
+    }))
+
+    // fallback false shows 404 if not listed
+    // fallback true shows blank and wait for new id to fetch
+    // fallback blocking waits for new id to fetch before loading
     return ({
-        fallback: false,
-        paths: [
-            {
-                params: {
-                    meetupId: 'm1'
-                }
-            },
-            {
-                params: {
-                    meetupId: 'm1'
-                }
-            }]
+        fallback: 'blocking',
+        paths: paths
     })
 }
 
-export async function getStaticProps(context) {
-    const meetupId = context.params.meetupId
 
-    const meetup = {
-        id: meetupId,
-        title: 'A First Meetup',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg',
-        address: 'Some address 5, 12345 Some City',
-        description: 'This is a first meetup!'
+export async function getStaticProps(context) {
+    const uri = "mongodb+srv://adambendjamaa:7cJi3wSkl5Od69hg@cluster0.mzrllbz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    const client = new MongoClient(uri, {
+        serverApi: {
+            version: ServerApiVersion.v1,
+            strict: true,
+            deprecationErrors: true,
+        }
+    });
+
+    let meetup = {}
+
+    try {
+        const meetupId = context.params.meetupId
+
+        await client.connect()
+        const document = await client.db('meetups').collection('meetups').findOne({ _id: ObjectId.createFromHexString(meetupId) })
+
+        meetup = {
+            title: document.title,
+            image: document.image,
+            address: document.address,
+            description: document.description
+        }
+
+    } catch (error) {
+        console.log(error);
     }
 
     return ({
