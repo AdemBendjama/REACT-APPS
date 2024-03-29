@@ -6,7 +6,7 @@ import todoContext from "../context/todo-context";
 //   onAddTodo: (text: string) => void;
 // }
 
-const NewTodo: React.FC = () => {
+const NewTodo = () => {
   const textInputRef = useRef<HTMLInputElement>(null);
   const context = useContext(todoContext);
   const { onAddTodo } = context;

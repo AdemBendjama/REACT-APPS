@@ -13,9 +13,7 @@ const todoContext = createContext<TodosContextObj>({
   onRemoveTodo: () => {},
 });
 
-export const TodoContextProvider: React.FC<{ children?: ReactNode }> = (
-  props
-) => {
+export const TodoContextProvider = (props: { children?: ReactNode }) => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const addTodoHandler = (text: string) => {
     setTodos((prevTodos) => {

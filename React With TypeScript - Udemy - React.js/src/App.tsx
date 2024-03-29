@@ -5,13 +5,13 @@ import { TodoContextProvider } from "./context/todo-context";
 
 // const items = [new Todo("Go buy sdd"), new Todo("walk for 30 mins")];
 
-function App() {
+const App = () => {
   return (
     <TodoContextProvider>
       <NewTodo />
       <Todos />
     </TodoContextProvider>
   );
-}
+};
 
 export default App;

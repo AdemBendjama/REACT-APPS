@@ -8,7 +8,7 @@ import todoContext from "../context/todo-context";
 //   onRemoveTodo: (id: string) => void;
 // }
 
-const TodoList: React.FC = () => {
+const TodoList = () => {
   const context = useContext(todoContext);
   const { items, onRemoveTodo } = context;
 

@@ -1,13 +1,13 @@
 import React from "react";
 import classes from "./TodoItem.module.css";
 
-interface Props {
+type Props = {
   id: string;
   text: string;
   onRemoveTodo: (id: string) => void;
-}
+};
 
-const TodoItem: React.FC<Props> = (props) => {
+const TodoItem = (props: Props) => {
   return (
     <li
       className={classes.item}
