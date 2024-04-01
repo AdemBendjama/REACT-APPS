@@ -1,9 +1,10 @@
+import { StaticImageData } from "next/image";
 import { Meal } from "@/app/Model/Meal";
 import sql from "better-sqlite3";
-import { StaticImageData } from "next/image";
 const db = sql("meals.db");
 
 export async function getMeals() {
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const result = db.prepare("SELECT * FROM meals").all();
   const meals: Meal[] = result.map((row: any) => {
     const meal: Meal = {
@@ -23,6 +24,9 @@ export async function getMeals() {
 }
 
 export async function getMeal(slug: string) {
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  // throw new Error('Loading meals failed');
   const result: any = db
     .prepare("SELECT * FROM meals WHERE slug = ?")
     .get(slug);

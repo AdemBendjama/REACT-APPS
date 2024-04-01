@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
-import classes from "./page.module.css";
-import Image from "next/image";
-import { Meal } from "@/app/Model/Meal";
 import { getMeal } from "@/lib/meals";
 import MealItemDetail from "@/components/MealsGrid/MealItemDetail/MealItemDetail";
-
+import { Suspense } from "react";
+import classes from "./page.module.css";
 async function MealData({ slug }: { slug: string }) {
   const meal = await getMeal(slug);
 
@@ -18,7 +16,13 @@ async function MealData({ slug }: { slug: string }) {
 function MealItemPage({ params }: { params: { mealSlug: string } }) {
   return (
     <>
-      <MealData slug={params.mealSlug} />
+      <main className={classes.main}>
+        <Suspense
+          fallback={<p className={classes.loading}>Fetching Meal Details...</p>}
+        >
+          <MealData slug={params.mealSlug} />
+        </Suspense>
+      </main>
     </>
   );
 }
