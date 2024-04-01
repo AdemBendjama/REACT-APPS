@@ -21,3 +21,28 @@ export async function getMeals() {
 
   return meals;
 }
+
+export async function getMeal(slug: string) {
+  const result: any = db
+    .prepare("SELECT * FROM meals WHERE slug = ?")
+    .get(slug);
+
+  if (!result) {
+    return null;
+  }
+
+  result.instructions = result.instructions.replace(/\n/g, "<br/>");
+
+  const meal: Meal = {
+    id: result.id,
+    slug: result.slug,
+    title: result.title,
+    image: result.image as StaticImageData,
+    summary: result.summary,
+    instructions: result.instructions,
+    creator: result.creator,
+    creator_email: result.creator_email,
+  };
+
+  return meal;
+}
