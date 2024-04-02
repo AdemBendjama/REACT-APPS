@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getMeal } from "@/lib/meals";
+import { getMeal } from "@/lib/mealsService";
 import MealItemDetail from "@/components/MealsGrid/MealItemDetail/MealItemDetail";
 import { Suspense } from "react";
 import classes from "./page.module.css";

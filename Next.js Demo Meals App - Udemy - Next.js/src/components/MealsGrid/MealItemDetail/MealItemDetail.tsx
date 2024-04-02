@@ -1,4 +1,4 @@
-import { Meal } from "@/app/Model/Meal";
+import { Meal } from "@/Model/Meal";
 import Image from "next/image";
 import classes from "./MealItemDetail.module.css";
 
@@ -7,7 +7,7 @@ function MealItemDetail({ meal }: { meal: Meal }) {
     <>
       <header className={classes.header}>
         <div className={classes.image}>
-          <Image src={meal.image} alt={meal.title} fill />
+          <Image src={meal.image.path} alt={meal.title} fill />
         </div>
         <div className={classes.headerText}>
           <h1>{meal.title}</h1>

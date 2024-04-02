@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 import MealItem from "./MealItem";
 import classes from "./MealsGrid.module.css";
-import { Meal } from "@/app/Model/Meal";
+import { Meal } from "@/Model/Meal";
 
 function MealsGrid(props: { meals: Meal[] }) {
   return (
